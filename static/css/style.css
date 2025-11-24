@@ -1,0 +1,36 @@
+.floating-icon {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+}
+
+.floating-icon img {
+    width: 70%;
+    height: 70%;
+}
+
+/* Cart bottom-right */
+.cart-icon {
+    bottom: 20px;
+    right: 20px;
+    background-color: #ffc107; /* optional */
+}
+
+/* WhatsApp above cart */
+.whatsapp-icon {
+    bottom: 90px; /* 60px height + 10px spacing + extra 20px */
+    right: 20px;
+    background-color: #25D366;
+}
+
+/* Hover effect */
+.floating-icon:hover {
+    transform: scale(1.1);
+}

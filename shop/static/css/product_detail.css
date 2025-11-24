@@ -1,0 +1,120 @@
+.container {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+/* Product Image */
+.product-image {
+    width: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+    max-height: 400px;
+}
+
+/* Product Info */
+.product-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #0d6efd;
+    margin-bottom: 0.5rem;
+}
+
+.product-description {
+    font-size: 1rem;
+    color: #495057;
+    margin-bottom: 1rem;
+}
+
+.product-price {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #198754;
+}
+
+/* Stock colors */
+.stock {
+    font-weight: 500;
+}
+
+/* Add to Cart button */
+.btn-add-cart {
+    padding: 0.6rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.btn-add-cart:hover {
+    background-color: #0b5ed7;
+}
+
+/* Star Ratings */
+.star {
+    font-size: 1.1rem;
+    color: #ccc; /* default gray */
+}
+
+.star.filled {
+    color: #ffc107; /* yellow for filled stars */
+}
+
+/* Reviews Container Scrollable */
+.reviews-container {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* Optional: scrollbar styling */
+.reviews-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.reviews-container::-webkit-scrollbar-thumb {
+    background-color: #0d6efd;
+    border-radius: 4px;
+}
+
+.reviews-container::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 4px;
+}
+
+/* Individual Review Cards */
+.review-card {
+    border-radius: 12px;
+    transition: transform 0.2s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-2px);
+}
+
+.review-user {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #0d6efd;
+}
+
+.review-comment {
+    font-size: 0.95rem;
+    color: #212529;
+}
+
+/* Review form inputs */
+.form-floating > input,
+.form-floating > textarea {
+    height: 50px;
+    padding: 1rem .75rem .25rem .75rem;
+}
+
+.form-floating textarea {
+    min-height: 100px;
+    padding-top: 1rem;
+}
+
+.form-floating > label {
+    top: 0.5rem;
+    left: 0.75rem;
+    font-size: 0.9rem;
+    color: #6c757d;
+}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="container container-profile mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm card-profile">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Your Profile</h2>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <!-- Account Info -->
+                        <div class="form-section-title mb-3">Account Info</div>
+                        {% for field in user_form %}
+                        <div class="form-floating mb-3">
+                            {{ field|add_class:"form-control" }}
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {% if field.errors %}
+                                <div class="text-danger mt-1">{{ field.errors }}</div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+
+                        <!-- Profile Info -->
+                        <div class="form-section-title mt-4 mb-3">Profile Info</div>
+                        {% for field in profile_form %}
+                        <div class="form-floating mb-3">
+                            {{ field|add_class:"form-control" }}
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {% if field.errors %}
+                                <div class="text-danger mt-1">{{ field.errors }}</div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+
+                        <button type="submit" class="btn btn-primary btn-update w-100">Update</button>
+                    </form>
+
+                    <a href="{% url 'logout' %}" class="btn btn-outline-danger btn-logout w-100 mt-3">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}

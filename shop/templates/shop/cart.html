@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Shopping Cart{% endblock %}
+
+{% block content %}
+<div class="container container-cart mt-5">
+    <h1 class="text-center mb-4">Shopping Cart</h1>
+
+    {% if cart_items %}
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>${{ item.product.price }}</td>
+                    <td>
+                        <form action="{% url 'update_cart' item.id %}" method="post" class="d-flex align-items-center">
+                            {% csrf_token %}
+                            <input type="number" name="quantity" value="{{ item.quantity }}" min="1" max="{{ item.product.stock }}"  class="form-control form-control-sm me-2" style="width:70px;">
+                            <button type="submit" class="btn btn-sm btn-primary">Update</button>
+                        </form>
+                    </td>
+                    <td>${{ item.total_price }}</td>
+                    <td>
+                        <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-sm btn-danger">Remove</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-4 flex-column flex-md-row">
+        <h3>Total: ${{ total }}</h3>
+        <a href="/checkout/" class="btn btn-success btn-lg mt-2 mt-md-0">Proceed to Checkout</a>
+    </div>
+
+    {% else %}
+    <p class="text-center">Your cart is empty.</p>
+    <div class="container mb-5">
+        <div class="p-5 shadow-lg rounded text-center 
+                    text-white bg-dark bg-opacity-50 
+                    position-relative overflow-hidden"
+            style="background:url('/static/img/offer_banar.jpg') center/cover no-repeat;">
+            <a class="btn btn-primary btn-lg" href="{% url 'product_list' %}">
+                Explore And Shop
+            </a>
+        </div>
+    </div>
+
+    <div class="container mb-5">
+        <div class="featured-banner shadow rounded overflow-hidden">
+            <img src="{% static 'img/banar.jpg' %}" 
+                alt="Featured Banner" 
+                class="img-fluid w-100" 
+                style="max-height: 400px; object-fit: cover;">
+        </div>
+    </div>
+
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock %}

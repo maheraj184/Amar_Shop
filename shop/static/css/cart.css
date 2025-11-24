@@ -1,0 +1,37 @@
+.container-cart {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none; /* hide number arrows in Chrome/Safari */
+    margin: 0;
+}
+
+.btn {
+    min-width: 80px;
+}
+
+h1, h3 {
+    color: #0d6efd;
+}
+
+@media (max-width: 576px) {
+    .d-flex.flex-md-row {
+        flex-direction: column !important;
+        text-align: center;
+    }
+    .d-flex.flex-md-row a {
+        margin-top: 10px;
+    }
+}

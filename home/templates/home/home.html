@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- HERO CAROUSEL SECTION -->
+<div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="1800">
+  <!-- Indicators -->
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+
+  <!-- Slides -->
+  <div class="carousel-inner">
+    <!-- Slide 1 -->
+    <div class="carousel-item active" style="height:70vh; background: url('/static/img/hero_bg.jpg') no-repeat center center; background-size: cover;">
+      <div class="carousel-caption d-flex flex-column justify-content-center h-100 text-start text-white">
+        <h1>Discover Amazing Products</h1>
+        <p>Quality you can trust, delivered fast to your doorstep.</p>
+        <a href="{% url 'product_list' %}" class="btn btn-light btn-lg mt-3">Shop Now</a>
+      </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="carousel-item" style="height:70vh; background: url('/static/img/hero_bg2.jpg') no-repeat center center; background-size: cover;">
+      <div class="carousel-caption d-flex flex-column justify-content-center h-100 text-start text-white">
+        <h1>Unbeatable Prices</h1>
+        <p>Get the best deals every day and save more on your favorites.</p>
+        <a href="{% url 'product_list' %}" class="btn btn-light btn-lg mt-3">Shop Now</a>
+      </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="carousel-item" style="height:70vh; background: url('/static/img/hero_bg3.jpg') no-repeat center center; background-size: cover;">
+      <div class="carousel-caption d-flex flex-column justify-content-center h-100 text-start text-white">
+        <h1>Shop Smarter, Live Better</h1>
+        <p>Fast delivery, top quality, and guaranteed satisfaction.</p>
+        <a href="{% url 'product_list' %}" class="btn btn-light btn-lg mt-3">Shop Now</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+
+
+<!-- CATEGORY SECTION -->
+<div class="container my-5">
+    <h2 class="fw-bold mb-4">Shop by Category</h2>
+
+    <div class="row">
+
+        <div class="col-6 col-md-3 mb-4">
+            <div class="category-card shadow-sm text-center p-3">
+                <a href="{% url 'category_products' 'Electronics' %}">
+                    <img src="{% static 'img/category/helth.png' %}" class="category-img rounded mb-2">
+                </a>
+                <h5>Electronics</h5>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3 mb-4">
+            <div class="category-card shadow-sm text-center p-3">
+                <a href="{% url 'category_products' 'Fashion' %}">
+                    <img src="{% static 'img/category/Fashion.png' %}" class="category-img rounded mb-2">
+                </a>
+                <h5>Fashion</h5>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3 mb-4">
+            <div class="category-card shadow-sm text-center p-3">
+                <a href="{% url 'category_products' 'Groceries' %}">
+                    <img src="{% static 'img/category/helth.png' %}" class="category-img rounded mb-2">
+                </a>
+                <h5>Groceries</h5>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3 mb-4">
+            <div class="category-card shadow-sm text-center p-3">
+                <a href="{% url 'category_products' 'Beauty & Health' %}">
+                    <img src="{% static 'img/category/Beauty_Health.png' %}" class="category-img rounded mb-2">
+                </a>
+                <h5>Beauty & Health</h5>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- FEATURED PRODUCTS -->
+<div class="container my-5">
+    <h2 class="fw-bold mb-4">Featured Products</h2>
+
+    <div class="row">
+
+{% for product in top_products %}
+<div class="col-md-4 mb-4">
+    <div class="product-card">
+
+        {% if product.image %}
+        <img src="{{ product.image.url }}"   class="img-fluid" alt="{{ product.name }}">
+        {% else %}
+        <img src="https://via.placeholder.com/400" class="img-fluid" alt="No image">
+        {% endif %}
+
+        <div class="p-3">
+            <div class="title">{{ product.name }}</div>
+            
+            <div class="price">$ {{ product.price }}</div>
+
+            <a href="{% url 'product_detail' product.id %}" class="btn btn-add btn-sm mt-2">
+                View Details
+            </a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+    </div>
+</div>
+
+
+<div class="container mb-5">
+    <div class="p-5 shadow-lg rounded text-center 
+                text-white bg-dark bg-opacity-50 
+                position-relative overflow-hidden"
+         style="background:url('/static/img/offer_banar.jpg') center/cover no-repeat;">
+
+        <h2 class="fw-bold">🔥 Mega Winter Sale is Live!</h2>
+        <p class="fs-5">Up to 60% discount on electronics, gadgets, and fashion items.</p>
+
+        <a class="btn btn-primary btn-lg" href="{% url 'category_products' 'Mega Offer' %}">
+            Explore Offers
+        </a>
+    </div>
+</div>
+
+
+
+<div class="container mb-5">
+    <div class="featured-banner shadow rounded overflow-hidden">
+        <img src="{% static 'img/banar.jpg' %}" 
+             alt="Featured Banner" 
+             class="img-fluid w-100" 
+             style="max-height: 400px; object-fit: cover;">
+    </div>
+</div>
+
+
+
+<!-- TESTIMONIALS -->
+<div class="row">
+    <h2>Customer reviews</h2>
+    {% for review in latest_reviews %}
+        <div class="col-md-4">
+            <div class="testimonial shadow-sm p-4 rounded mb-4">
+                <p>"{{ review.comment }}"</p>
+
+                <h6 class="mt-3">— {{ review.user.username }}</h6>
+                <small class="text-muted">On {{ review.product.name }}</small>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% if latest_reviews|length == 0 %}
+        <div class="col-12 text-center">
+            <p class="text-muted">No reviews yet.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

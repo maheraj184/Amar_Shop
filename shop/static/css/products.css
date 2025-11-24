@@ -1,0 +1,75 @@
+/* Star logic for filled/unfilled stars */
+.star {
+    font-size: 1.2rem;
+    color: #d1d1d1; /* gray for unfilled star */
+    margin-right: 2px;
+}
+
+.star.filled {
+    color: #ffc107; /* yellow for filled star */
+}
+
+/* Container padding */
+.container {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+/* Product Card */
+.product-card {
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.2);
+}
+
+.product-img {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.product-title {
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #0d6efd;
+}
+
+.product-price {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #198754;
+    margin-bottom: 10px;
+}
+
+.btn-view {
+    padding: 0.5rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.btn-view:hover {
+    background-color: #0b5ed7;
+}
+
+/* Pagination */
+.pagination .page-item.active .page-link {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #fff;
+}
+
+.pagination .page-link {
+    color: #0d6efd;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination .page-link:hover {
+    background-color: #0d6efd;
+    color: #fff;
+}

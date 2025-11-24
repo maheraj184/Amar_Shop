@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+<h1>Checkout</h1>
+<form method="post">
+    {% csrf_token %}
+
+    <!-- Shipping Address -->
+    <label>Shipping Address:</label><br>
+    <textarea name="address" rows="4" class="form-control" required></textarea><br>
+
+    <!-- Payment Method -->
+    <label><strong>Payment Method:</strong></label><br>
+
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="payment_method" value="cod" id="cod" checked>
+        <label class="form-check-label" for="cod">Cash on Delivery</label>
+    </div>
+
+    <div class="form-check mt-2">
+        <input class="form-check-input" type="radio" name="payment_method" value="send_money" id="send_money">
+        <label class="form-check-label" for="send_money">bKash(Send Money)</label>
+    </div>
+
+    <!-- Send Money Section -->
+    <div id="sendMoneySection" style="display:none; margin-top:15px;">
+        <div class="alert alert-info">
+            <strong>Send Money To:</strong>  
+            <br>📱 bKash: <strong>017XXXXXXXX</strong>  
+            <br><small>Send Money করার পরে নিচে Transaction ID লিখুন</small>
+        </div>
+
+        <label>Transaction ID:</label>
+        <input type="text" name="transaction_id" class="form-control" placeholder="Enter Transaction ID">
+    </div>
+
+    <!-- Total -->
+    <h3 class="mt-3">Total: ${{ total }}</h3>
+
+    <button type="submit" class="btn btn-success mt-3">Place Order</button>
+</form>
+
+<!-- Show/Hide Send Money -->
+<script>
+document.getElementById('cod').addEventListener('change', function() {
+    document.getElementById('sendMoneySection').style.display = 'none';
+});
+
+document.getElementById('send_money').addEventListener('change', function() {
+    document.getElementById('sendMoneySection').style.display = 'block';
+});
+</script>
+
+{% endblock %}

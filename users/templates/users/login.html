@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %}Login Page{% endblock %}
+
+{% block content %}
+<div class="container container-login mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card card-login shadow-sm">
+
+
+                <div class="container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+                    <div class="card shadow-lg border-0" style="max-width: 420px; width: 100%;">
+                        <div class="card-body p-4">
+
+                            <h2 class="text-center mb-4 fw-bold">Login</h2>
+
+                            <form method="POST">
+                                {% csrf_token %}
+                                {% for field in form %}
+                                <div class="form-floating mb-3">
+                                    {{ field|add_class:"form-control" }}
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                    {% if field.errors %}
+                                        <div class="text-danger mt-1 small">{{ field.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                {% endfor %}
+
+                                <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">
+                                    Login
+                                </button>
+                            </form>
+
+                            <div class="text-center mt-4">
+                                <a href="{% url 'password_reset' %}" class="d-block mb-2 text-decoration-none">
+                                    Forgot Password?
+                                </a>
+
+                                <h6 class="mb-1">Don't have an account?</h6>
+                                <a href="{% url 'register' %}" class="text-decoration-none fw-semibold">
+                                    Register
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}

@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row g-4">
+        <!-- Product Image -->
+        <div class="col-md-6">
+            {% if product.image %}
+                <div class="product-image-wrapper">
+                    <img src="{{ product.image.url }}" class="img-fluid rounded shadow-sm product-image" alt="{{ product.name }}">
+                </div>
+            {% else %}
+                <div class="border rounded p-5 text-center text-muted">
+                    No image available
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Product Info -->
+        <div class="col-md-6">
+            <h2 class="product-title">{{ product.name }}</h2>
+            <p class="product-description">{{ product.description }}</p>
+            
+            <!-- Stock -->
+            {% if product.stock <= 5 %}
+                <p class="stock text-danger">Stock: {{ product.stock }} (Low)</p>
+            {% elif product.stock <= 20 %}
+                <p class="stock text-warning">Stock: {{ product.stock }} (Medium)</p>
+            {% else %}
+                <p class="stock text-success">Stock: {{ product.stock }} (High)</p>
+            {% endif %}
+
+            <!-- Average Rating -->
+            {% if total_reviews > 0 %}
+            <p class="mb-2">
+                {% for i in "12345"|make_list %}
+                    {% if forloop.counter <= avg_rating %}
+                        &#9733;
+                    {% else %}
+                        &#9734;
+                    {% endif %}
+                {% endfor %}
+                <span class="badge bg-secondary">{{ total_reviews }} Reviews</span>
+            </p>
+            {% else %}
+                <p>No ratings yet</p>
+            {% endif %}
+            
+            <p class="product-price"><strong>Price: ${{ product.price }}</strong></p>
+            <a href="{% url 'add_to_cart' product.id %}" class="btn btn-success btn-add-cart w-100 mb-3">Add to Cart</a>
+        </div>
+    </div>
+
+    <hr class="my-4">
+
+    <!-- Reviews -->
+    <h3 class="mb-3">Reviews</h3>
+    {% if reviews %}
+        <div class="reviews-container" style="max-height: 400px; overflow-y: auto;">
+        {% for review in reviews %}
+        <div class="card mb-3 review-card shadow-sm p-3">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <strong class="review-user">{{ review.user.username }}</strong>
+                <span class="review-rating">
+                    {% for i in "12345"|make_list %}
+                        {% if forloop.counter <= review.rating %}
+                            &#9733;
+                        {% else %}
+                            &#9734;
+                        {% endif %}
+                    {% endfor %}
+                    <span class="text-muted">({{ review.rating }}/5)</span>
+                </span>
+            </div>
+            <p class="review-comment mb-0">{{ review.comment }}</p>
+        </div>
+        {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted">No reviews yet.</p>
+    {% endif %}
+
+    <hr class="my-4">
+
+    <!-- Add Review Form -->
+    {% if user.is_authenticated %}
+        <div class="card review-form-card shadow-sm p-4 mb-4">
+            <h4 class="mb-3">Add a Review</h4>
+            <form method="post">
+                {% csrf_token %}
+
+                <!-- Rating Field -->
+                <div class="mb-3">
+                    <label for="id_rating" class="form-label">Rating (1 to 5)</label>
+                    <select name="rating" id="id_rating" class="form-select" required>
+                        <option value="">Select rating</option>
+                        {% for i in "12345" %}
+                            <option value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Comment Field -->
+                <div class="form-floating mb-3">
+                    <textarea name="comment" class="form-control" id="id_comment" placeholder="Enter your review" required></textarea>
+                    <label for="id_comment">Your Comment</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 btn-submit-review">Submit Review</button>
+            </form>
+        </div>
+    {% else %}
+        <p><a href="{% url 'login' %}">Login</a> to add a review.</p>
+    {% endif %}
+
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+<style>
+/* Optional: scrollbar style for reviews */
+.reviews-container::-webkit-scrollbar {
+    width: 6px;
+}
+.reviews-container::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.3);
+    border-radius: 3px;
+}
+.reviews-container::-webkit-scrollbar-track {
+    background-color: rgba(0,0,0,0.05);
+}
+</style>
+{% endblock %}

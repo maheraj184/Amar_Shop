@@ -8,7 +8,12 @@ def home(request):
     # Latest 3 reviews across all products
     latest_reviews = Review.objects.order_by('-created_at')[:3]
 
+    # Fetch all categories
+    from shop.models import Category
+    categories = Category.objects.all()
+
     return render(request, 'home/home.html', {
         "top_products": top_products,
         "latest_reviews": latest_reviews,
+        "categories": categories,
     })

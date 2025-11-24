@@ -1,0 +1,4 @@
+/* UI Polish for consistent card heights and responsive images */
+.product-card { height: 100%; }
+.product-img, .product-image { object-fit: cover; width: 100%; height: auto; }
+.product-card:hover { transform: translateY(-4px); transition: transform .2s; }

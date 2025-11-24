@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'home',
     'contact',
     'widget_tweaks',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -125,11 +127,22 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Enable WhiteNoise's Gzip compression of static assets.
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+# Cloudinary credentials
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'Root12',
+    'API_KEY': '676253355153855',
+    'API_SECRET': '-O0-hkPjNd7h_uPYNUPGDTpkH7I',
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
